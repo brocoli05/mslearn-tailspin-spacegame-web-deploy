@@ -35,7 +35,10 @@ stages:
       displayName: 'Use Node.js 16'
       inputs:
         version: '16.x'
-        
+
+    - script: 'npm install -g gulp-cli'
+      displayName: 'Install Gulp CLI globally'
+   
     - task: Npm@1
       displayName: 'Run npm install'
       inputs:
