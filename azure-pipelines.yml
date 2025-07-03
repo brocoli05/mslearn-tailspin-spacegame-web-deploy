@@ -90,6 +90,8 @@ stages:
     environment: dev
     variables:
     - group: Release
+    - name: WebAppNameDev
+      value: 'tailspin-space-game-web-dev-7116'
     strategy:
       runOnce:
         deploy:
