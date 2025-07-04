@@ -89,9 +89,9 @@ stages:
       name: SecureAgents-minji
     environment: dev
     variables:
-    - group: Release
-    - name: WebAppNameDev
-      value: 'tailspin-space-game-web-dev-7116'
+      - group: Release
+      - name: WebAppNameDev
+        value: 'tailspin-space-game-web-dev-7116'
     strategy:
       runOnce:
         deploy:
@@ -104,4 +104,5 @@ stages:
               azureSubscription: 'uamanagedidentity'
               appType: 'webAppLinux'
               appName: '$(WebAppNameDev)'
+              resourceGroupName: 'tailspin-space-game-rg'
               package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
