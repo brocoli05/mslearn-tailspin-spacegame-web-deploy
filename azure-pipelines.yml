@@ -106,3 +106,30 @@ stages:
               appName: '$(WebAppNameDev)'
               resourceGroupName: 'tailspin-space-game-rg'
               package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
+
+- stage: 'Staging'
+  displayName: 'Deploy to the staging environment'
+  dependsOn: Dev
+  jobs:
+  - deployment: Deploy
+    pool:
+      name: SecureAgents-minji
+    environment: staging
+    variables:
+      - group: 'Release'
+      - name: WebAppNameStaging
+        value: 'tailspin-space-game-web-staging-7116'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: drop
+          - task: AzureWebApp@1
+            displayName: 'Azure App Service Deploy: staging website'
+            inputs:
+              azureSubscription: 'uamanagedidentity'
+              appType: 'webAppLinux'
+              appName: '$(WebAppNameStaging)'
+              resourceGroupName: 'tailspin-space-game-rg'
+              package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
